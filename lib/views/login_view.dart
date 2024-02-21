@@ -11,6 +11,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  @override
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -33,14 +34,14 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Register')),
+        appBar: AppBar(title: const Text('Login')),
         body: FutureBuilder(
             future: Firebase.initializeApp(
               options: DefaultFirebaseOptions.currentPlatform,
             ),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
-                case ConnectionState.none:
+                case ConnectionState.done:
                   return Column(children: [
                     TextField(
                         controller: _email,
@@ -61,12 +62,12 @@ class _LoginViewState extends State<LoginView> {
                           final email = _email.text;
                           final password = _password.text;
                           final userCredential = await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
+                              .signInWithEmailAndPassword(
                                   email: email, password: password);
 
                           print(userCredential);
                         },
-                        child: const Text('Register'))
+                        child: const Text('Login'))
                   ]);
                 default:
                   return const Text("Loading...");
