@@ -34,7 +34,8 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Login')),
+        appBar:
+            AppBar(title: const Text('Login'), backgroundColor: Colors.blue),
         body: FutureBuilder(
             future: Firebase.initializeApp(
               options: DefaultFirebaseOptions.currentPlatform,
@@ -61,11 +62,20 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () async {
                           final email = _email.text;
                           final password = _password.text;
-                          final userCredential = await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: email, password: password);
+                          try {
+                            final userCredential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: email, password: password);
 
-                          print(userCredential);
+                            print(userCredential);
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              print("something wrong, user not found");
+                              print(e);
+                            } else if (e.code == 'wrong-password') {
+                              print("wrong password");
+                            }
+                          }
                         },
                         child: const Text('Login'))
                   ]);
