@@ -18,3 +18,8 @@ https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/cu
 https://docs.flutter.dev/cookbook/navigation/named-routes
 
 ## Logout
+
+- NotesView
+- AppBar(where we show the the logout button)
+- PopupMenuButton vs PopupMenuItem
+- MenuAction

@@ -36,17 +36,49 @@ class Homepage extends StatelessWidget {
               final user = FirebaseAuth.instance.currentUser;
               if (user != null) {
                 if (user.emailVerified) {
-                  print('Email is verified');
-                } else {
+                  // I put the reverse logic here because my email not verified yet
                   return const VerifyEmailView();
+                } else {
+                  return const NotesView();
                 }
               } else {
                 return const LoginView();
               }
-              return const Text('Done');
             default:
               return const CircularProgressIndicator();
           }
         });
+  }
+}
+
+enum MenuAction { logout }
+
+class NotesView extends StatefulWidget {
+  const NotesView({super.key});
+
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Main UI"),
+        actions: [
+          PopupMenuButton<MenuAction>(
+            onSelected: (value) {},
+            itemBuilder: (context) {
+              return const [
+                PopupMenuItem<MenuAction>(
+                    value: MenuAction.logout, child: const Text("Log out")),
+              ];
+            },
+          )
+        ],
+      ),
+      body: const Text("This is my notes"),
+    );
   }
 }
