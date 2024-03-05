@@ -23,3 +23,7 @@ https://docs.flutter.dev/cookbook/navigation/named-routes
 - AppBar(where we show the the logout button)
 - PopupMenuButton vs PopupMenuItem
 - MenuAction
+- Alias for imported method
+- Display dialog(show, alert)
+- Logout from firebase
+- Navigate back to login view
