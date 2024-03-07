@@ -2,6 +2,14 @@
 
 A new Flutter project.
 
+## Table contents
+
+- [Registration](#registration)
+- [Login](#login)
+  - [Authentication](#firebase-authentication-currentuser)
+  - [Navigation](#navigation)
+- [Logout](#logout)
+
 ## Registration
 
 ## Login
@@ -97,4 +105,4 @@ https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/cu
 
 - Display dialog(show, alert)
 - Logout from firebase
-- Navigate back to login view
+- Navigate back to login view(pushNameAndRemoveUntil())

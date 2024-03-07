@@ -5,7 +5,6 @@ import 'package:mynotes/firebase_options.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_email_view.dart';
-import 'dart:developer' as devtools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +17,8 @@ void main() {
       home: const Homepage(),
       routes: {
         '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView()
+        '/register/': (context) => const RegisterView(),
+        '/notes/': (context) => const NotesView(),
       }));
 }
 
@@ -36,11 +36,11 @@ class Homepage extends StatelessWidget {
             case ConnectionState.done:
               final user = FirebaseAuth.instance.currentUser;
               if (user != null) {
+                user.reload();
                 if (user.emailVerified) {
-                  // I put the reverse logic here because my email not verified yet
-                  return const VerifyEmailView();
-                } else {
                   return const NotesView();
+                } else {
+                  return const VerifyEmailView();
                 }
               } else {
                 return const LoginView();
@@ -85,7 +85,7 @@ class _NotesViewState extends State<NotesView> {
             itemBuilder: (context) {
               return const [
                 PopupMenuItem<MenuAction>(
-                    value: MenuAction.logout, child: const Text("Log out")),
+                    value: MenuAction.logout, child: Text("Log out")),
               ];
             },
           )
